@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updatePickupLocation(long orderId, double latitude, double longitude) {
+    public Order updatePickupLocation(long orderId, double latitude, double longitude) {
         Order order;
         Optional<Order> orderOptional = this.orderRepository.findById(orderId);
         if(orderOptional.isEmpty()) {
@@ -30,15 +30,19 @@ public class OrderServiceImpl implements OrderService {
             Location pickupLocation = new Location();
             pickupLocation.setLatitude(latitude);
             pickupLocation.setLongitude(longitude);
+            order.setPickupLocation(pickupLocation);
             order = this.orderRepository.save(order);
             this.redisTemplate.opsForHash().put("ORDER_PICKUP_LOCATION", "order_" + order.getId(), pickupLocation);
+        } else {
+            order = orderOptional.get();
+            Location pickupLocation = order.getPickupLocation();
+            pickupLocation.setLatitude(latitude);
+            pickupLocation.setLongitude(longitude);
+            order.setPickupLocation(pickupLocation);
+            this.orderRepository.save(order);
+            this.redisTemplate.opsForHash().put("ORDER_PICKUP_LOCATION", "order_" + order.getId(), pickupLocation);
         }
-        order = orderOptional.get();
-        Location pickupLocation = order.getPickupLocation();
-        pickupLocation.setLatitude(latitude);
-        pickupLocation.setLongitude(longitude);
-        this.orderRepository.save(order);
-        this.redisTemplate.opsForHash().put("ORDER_PICKUP_LOCATION", "order_" + order.getId(), pickupLocation);
+        return order;
     }
 
 }

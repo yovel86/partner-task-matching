@@ -20,8 +20,8 @@ public class PartnerLocationController {
 
     @PostMapping("/{id}")
     public void updatePartnerLocation(
-            @RequestBody UpdatePartnerLocationRequestDTO requestDTO,
-            @RequestParam("id") long partnerId
+            @PathVariable("id") long partnerId,
+            @RequestBody UpdatePartnerLocationRequestDTO requestDTO
     ) throws InvalidLatitudeException, InvalidLongitudeException {
         Double latitude = requestDTO.getLatitude();
         Double longitude = requestDTO.getLongitude();
