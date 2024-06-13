@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class PartnerLocation implements Serializable {
-    private int partnerId;
+    private long partnerId;
     private double latitude;
     private double longitude;
 }

@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public class RedisRepository {
 
-    private static final String KEY = "ORDER_PICKUP_LOCATION";
+    private static final String KEY = "ORDERS";
 
     private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, Object> hashOperations;

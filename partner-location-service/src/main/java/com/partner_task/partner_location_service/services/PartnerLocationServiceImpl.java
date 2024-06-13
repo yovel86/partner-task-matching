@@ -21,6 +21,7 @@ public class PartnerLocationServiceImpl implements PartnerLocationService {
         if(partnerLocation == null) {
             partnerLocation = new PartnerLocation();
         }
+        partnerLocation.setPartnerId(partnerId);
         partnerLocation.setLatitude(latitude);
         partnerLocation.setLongitude(longitude);
         this.redisTemplate.opsForHash().put("PARTNER_LOCATION", "partner_" + partnerId, partnerLocation);

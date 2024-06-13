@@ -1,8 +1,8 @@
 package com.partner_task.allocation_service.scheduler;
 
-import com.partner_task.allocation_service.dtos.Location;
 import com.partner_task.allocation_service.repositories.RedisRepository;
 import com.partner_task.allocation_service.strategies.CalculateDistanceStrategy;
+import com.partner_task.order_service.models.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +26,7 @@ public class AllocationScheduler {
     @Scheduled(cron = "0 */5 * * * *") // at every 5 minutes
     public void allocateTasks() {
         System.out.println("CRON task starting...");
-        Map<String, Object> orderLocations = redisRepository.findAll("ORDER_PICKUP_LOCATION");
+        Map<String, Object> orderLocations = redisRepository.findAll("ORDERS");
         Map<String, Object> partnerLocations = redisRepository.findAll("PARTNER_LOCATION");
         for(Map.Entry<String, Object> location: orderLocations.entrySet()) {
             System.out.println(location);

@@ -1,6 +1,6 @@
 package com.partner_task.allocation_service.strategies;
 
-import com.partner_task.allocation_service.dtos.Location;
+import com.partner_task.order_service.models.Location;
 import org.springframework.stereotype.Component;
 
 @Component

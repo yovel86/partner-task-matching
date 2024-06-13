@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
             pickupLocation.setLongitude(longitude);
             order.setPickupLocation(pickupLocation);
             order = this.orderRepository.save(order);
-            this.redisRepository.save("order_" + order.getId(), pickupLocation);
+            this.redisRepository.save("order_" + order.getId(), order);
         } else {
             order = orderOptional.get();
             Location pickupLocation = order.getPickupLocation();
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
             pickupLocation.setLongitude(longitude);
             order.setPickupLocation(pickupLocation);
             this.orderRepository.save(order);
-            this.redisRepository.save("order_" + order.getId(), pickupLocation);
+            this.redisRepository.save("order_" + order.getId(), order);
         }
         return order;
     }
